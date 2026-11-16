@@ -4,8 +4,6 @@
 
 - `init.py doctor`: checks Node, Playwright, ffmpeg, Python packages and the voice, and prints the fix for each.
 - `init.py new DIR --url URL`: writes a recording script and storyboard with TODOs to fill in.
-- Captions no longer overlap when one caption hands over to the next.
-- Per-take `window_title` in the storyboard.
 - README rewritten: quickstart first, prompts to try, feature GIFs, what leaves your computer.
 
 ## 0.1.0 (2026-11-16)
