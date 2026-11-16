@@ -1,0 +1,55 @@
+{
+  "title": "democut: narrated product demos, written as code",
+  "description": "This video was made by democut, from the storyboard in examples/taskboard. The app is a made-up sample.",
+  "voice": { "engine": "kokoro", "voice": "af_heart", "speed": 1.0, "lang": "en-us" },
+  "theme": { "background": ["#0f172a", "#312e81"], "accent": "#a5b4fc", "window_title": "localhost · Taskboard" },
+  "takes": {
+    "app":      { "badge": "LIVE",        "note": "sample app on localhost", "color": "#22c55e" },
+    "insights": { "badge": "SAMPLE DATA", "note": "made-up numbers",         "color": "#f59e0b" },
+    "terminal": { "badge": "TERMINAL",    "note": "replayed CLI session",    "color": "#60a5fa", "window_title": "~/democut" }
+  },
+  "cuts": {
+    "full": "*",
+    "short": ["intro", "add-task", "open-task", "mask", "outro"]
+  },
+  "cut_labels": { "full": "Full demo", "short": "Short cut" },
+  "shots": [
+    { "id": "intro",
+      "card": { "kicker": "DEMOCUT", "title": "Narrated product demos, written as code",
+                "sub": "Real browser recording  ·  offline voice  ·  captions  ·  chapters  ·  MIT",
+                "chapter_title": "What democut is" },
+      "say": "This video was made by democut. You write a short storyboard, your coding agent records the app, and democut edits it into a narrated demo.",
+      "say_short": "This video was made by democut. Your coding agent records the app, and democut turns it into a narrated demo." },
+
+    { "id": "board", "take": "app", "scene": "board", "chapter": "The sample app",
+      "say": "Here is Taskboard, a tiny sample app. This is a real browser recording, with a cursor viewers can actually follow." },
+
+    { "id": "ch-shots", "card": { "kicker": "CHAPTER 1", "title": "Shots that explain themselves",
+                                  "sub": "Cursor  ·  click ripples  ·  zooms  ·  typing  ·  captions" },
+      "say": "First, the shots." },
+
+    { "id": "search", "take": "app", "scene": "search", "chapter": "1 · Shots",
+      "say": "Typing happens at a human pace, and the camera eases in on the part that matters." },
+    { "id": "add-task", "take": "app", "scene": "add-task", "chapter": "1 · Shots",
+      "say": "Every click gets a ripple and a short pause before it, so nobody loses track of what happened." },
+    { "id": "open-task", "take": "app", "scene": "open-task", "chapter": "1 · Shots",
+      "say": "Page loads are cut out, and slow parts are sped up to fit the narration. Each shot lasts as long as its voiceover." },
+    { "id": "insights", "take": "insights", "scene": "insights", "chapter": "1 · Shots",
+      "say": "Every shot carries a badge that says where it came from. This chart uses made-up numbers, so it says so." },
+    { "id": "mask", "take": "app", "scene": "mask", "chapter": "1 · Shots",
+      "say": "Email addresses and other private text are masked before the page is painted, so they never reach the video." },
+
+    { "id": "ch-how", "card": { "kicker": "CHAPTER 2", "title": "How it is made",
+                                "sub": "Playwright  ·  Kokoro voice, offline  ·  ffmpeg  ·  no Remotion" },
+      "say": "Second, how it is made." },
+    { "id": "record", "take": "terminal", "scene": "record", "chapter": "2 · How it is made",
+      "say": "A short Playwright script records the takes, and marks a scene around each moment worth showing." },
+    { "id": "build", "take": "terminal", "scene": "build", "chapter": "2 · How it is made",
+      "say": "Then one command builds every cut. The voice is Kokoro, running offline on your machine, so nothing leaves it." },
+
+    { "id": "outro", "card": { "kicker": "ONE STORYBOARD, EVERY FORMAT", "title": "Install it in one line",
+                               "sub": "/plugin marketplace add javadfarshchi/democut",
+                               "chapter_title": "Get it" },
+      "say": "From one storyboard you get a full cut, a short cut, captions, a GIF for your readme, and a player page with chapters. It is MIT licensed. Install it in Claude Code with one line." }
+  ]
+}

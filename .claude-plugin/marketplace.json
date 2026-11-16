@@ -1,0 +1,15 @@
+{
+  "name": "democut",
+  "owner": { "name": "Javad Farshchi", "url": "https://github.com/javadfarshchi" },
+  "metadata": { "description": "democut: narrated product demo videos, written as code." },
+  "plugins": [
+    {
+      "name": "democut",
+      "source": "./",
+      "description": "Record a web app with Playwright and edit it into a narrated, captioned demo video with chapters, a short cut, a GIF and a player page. Offline voice, no Remotion, MIT.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": ["demo", "video", "playwright", "tts", "screen-recording"]
+    }
+  ]
+}

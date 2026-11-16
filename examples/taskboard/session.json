@@ -1,0 +1,31 @@
+{
+  "title": "terminal",
+  "prompt": "~/democut $ ",
+  "steps": [
+    {
+      "cmd": "node examples/taskboard/record.mjs .takes",
+      "out": [
+        "[democut] take app: 5 scenes, 38.7s -> .takes/app.webm",
+        "[democut] take insights: 1 scene, 7.0s -> .takes/insights.webm",
+        "[democut] take terminal: 2 scenes, 11.6s -> .takes/terminal.webm",
+        "takes written to .takes"
+      ],
+      "lineDelay": 260,
+      "pause": 700
+    },
+    {
+      "cmd": "python skills/democut/kit/build.py examples/taskboard/storyboard.json --takes .takes --out out --gif short",
+      "out": [
+        "[democut] full 01/12 intro: 10.3s (voice 8.9s)",
+        "[democut] full 02/12 board: 8.6s (voice 7.4s)",
+        "# ... 15 more shot lines",
+        "[democut] full: 88.1s -> out/full.mp4",
+        "[democut] short: 44.1s -> out/short.mp4",
+        "[democut] player -> out/index.html",
+        "[democut] gif -> out/short.gif (1.1 MB)"
+      ],
+      "lineDelay": 220,
+      "pause": 1000
+    }
+  ]
+}

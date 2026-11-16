@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>democut: narrated product demos, written as code</title>
+<!-- democut player: chapters, captions, transcript. Self-contained, no external requests. MIT licence. -->
+<style>
+  :root { --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0; --accent:#2563eb; --hl:#dbeafe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0b1020; --fg:#e2e8f0; --muted:#94a3b8; --card:#121a2e; --line:#1f2a44; --accent:#60a5fa; --hl:#1e3a8a55; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:1200px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:1.6rem; margin:0 0 4px; }
+  .desc { color:var(--muted); margin:0 0 16px; }
+  .cuts { display:flex; gap:8px; margin:0 0 12px; flex-wrap:wrap; }
+  .cuts button { border:1px solid var(--line); background:var(--card); color:var(--fg); padding:6px 14px; border-radius:999px; cursor:pointer; font:inherit; }
+  .cuts button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .grid { display:grid; grid-template-columns: minmax(0,1fr) 320px; gap:20px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  video { width:100%; border-radius:12px; background:#000; display:block; aspect-ratio:16/9; }
+  aside, .transcript { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
+  aside h2, .transcript h2 { font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:4px 6px 8px; }
+  .ch { display:flex; gap:10px; width:100%; text-align:left; padding:8px; border:0; background:none; color:inherit; font:inherit; border-radius:8px; cursor:pointer; }
+  .ch:hover { background:var(--hl); }
+  .ch.on { background:var(--hl); font-weight:600; }
+  .ch time { color:var(--muted); font-variant-numeric:tabular-nums; min-width:3.2em; }
+  .transcript { margin-top:20px; max-height:360px; overflow:auto; }
+  .cue { display:inline; cursor:pointer; padding:1px 2px; border-radius:4px; }
+  .cue.on { background:var(--hl); }
+  .dl { margin-top:12px; font-size:.9rem; color:var(--muted); }
+  .dl a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title"></h1>
+  <p class="desc" id="desc"></p>
+  <div class="cuts" id="cuts"></div>
+  <div class="grid">
+    <div>
+      <video id="v" controls playsinline preload="metadata" poster="poster.png"></video>
+      <div class="dl" id="dl"></div>
+    </div>
+    <aside><h2>Chapters</h2><div id="chapters"></div></aside>
+  </div>
+  <section class="transcript"><h2>Transcript</h2><div id="tx"></div></section>
+</main>
+<script>
+const DATA = {"title": "democut: narrated product demos, written as code", "description": "This video was made by democut, from the storyboard in examples/taskboard. The app is a made-up sample.", "cuts": [{"name": "full", "label": "Full demo", "duration": 88.1, "chapters": [{"at": 0.0, "title": "What democut is"}, {"at": 18.97, "title": "Shots that explain themselves"}, {"at": 57.67, "title": "How it is made"}, {"at": 74.93, "title": "Get it"}], "cues": [{"start": 0.45, "end": 2.46, "text": "This video was made by democut."}, {"start": 2.46, "end": 6.62, "text": "You write a short storyboard, your coding agent records the app,"}, {"start": 6.62, "end": 9.35, "text": "and democut edits it into a narrated demo."}, {"start": 10.78, "end": 13.22, "text": "Here is Taskboard, a tiny sample app."}, {"start": 13.22, "end": 18.23, "text": "This is a real browser recording, with a cursor viewers can actually follow."}, {"start": 19.42, "end": 20.59, "text": "First, the shots."}, {"start": 22.05, "end": 25.51, "text": "Typing happens at a human pace, and the camera eases in on"}, {"start": 25.51, "end": 26.83, "text": "the part that matters."}, {"start": 28.02, "end": 31.16, "text": "Every click gets a ripple and a short pause before it,"}, {"start": 31.16, "end": 33.44, "text": "so nobody loses track of what happened."}, {"start": 35.18, "end": 38.43, "text": "Page loads are cut out, and slow parts are sped up to"}, {"start": 38.43, "end": 42.1, "text": "fit the narration. Each shot lasts as long as its voiceover."}, {"start": 43.28, "end": 46.67, "text": "Every shot carries a badge that says where it came from."}, {"start": 46.67, "end": 49.51, "text": "This chart uses made-up numbers, so it says so."}, {"start": 50.72, "end": 54.65, "text": "Email addresses and other private text are masked before the page is"}, {"start": 54.65, "end": 56.9, "text": "painted, so they never reach the video."}, {"start": 58.12, "end": 59.65, "text": "Second, how it is made."}, {"start": 61.12, "end": 64.79, "text": "A short Playwright script records the takes, and marks a scene around"}, {"start": 64.79, "end": 66.17, "text": "each moment worth showing."}, {"start": 67.38, "end": 69.52, "text": "Then one command builds every cut."}, {"start": 69.52, "end": 72.85, "text": "The voice is Kokoro, running offline on your machine,"}, {"start": 72.85, "end": 74.17, "text": "so nothing leaves it."}, {"start": 75.38, "end": 78.0, "text": "From one storyboard you get a full cut,"}, {"start": 78.0, "end": 81.03, "text": "a short cut, captions, a GIF for your readme,"}, {"start": 81.03, "end": 83.17, "text": "and a player page with chapters."}, {"start": 83.17, "end": 84.45, "text": "It is MIT licensed."}, {"start": 84.45, "end": 87.14, "text": "Install it in Claude Code with one line."}]}, {"name": "short", "label": "Short cut", "duration": 44.1, "chapters": [{"at": 0.0, "title": "What democut is"}, {"at": 30.93, "title": "Get it"}], "cues": [{"start": 0.45, "end": 2.41, "text": "This video was made by democut."}, {"start": 2.41, "end": 7.28, "text": "Your coding agent records the app, and democut turns it into a narrated demo."}, {"start": 8.72, "end": 11.86, "text": "Every click gets a ripple and a short pause before it,"}, {"start": 11.86, "end": 14.14, "text": "so nobody loses track of what happened."}, {"start": 15.88, "end": 19.13, "text": "Page loads are cut out, and slow parts are sped up to"}, {"start": 19.13, "end": 22.8, "text": "fit the narration. Each shot lasts as long as its voiceover."}, {"start": 23.98, "end": 27.92, "text": "Email addresses and other private text are masked before the page is"}, {"start": 27.92, "end": 30.17, "text": "painted, so they never reach the video."}, {"start": 31.38, "end": 34.0, "text": "From one storyboard you get a full cut,"}, {"start": 34.0, "end": 37.03, "text": "a short cut, captions, a GIF for your readme,"}, {"start": 37.03, "end": 39.17, "text": "and a player page with chapters."}, {"start": 39.17, "end": 40.45, "text": "It is MIT licensed."}, {"start": 40.45, "end": 43.14, "text": "Install it in Claude Code with one line."}]}]};
+const $ = (id) => document.getElementById(id);
+const v = $('v');
+const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+$('title').textContent = DATA.title;
+$('desc').textContent = DATA.description || '';
+let cur = null;
+function load(cut) {
+  cur = cut;
+  document.querySelectorAll('.cuts button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cut === cut.name));
+  v.innerHTML = '';
+  v.src = `${cut.name}.mp4`;
+  const tr = document.createElement('track');
+  Object.assign(tr, { kind: 'captions', srclang: 'en', label: 'English', src: `${cut.name}.vtt`, default: true });
+  v.appendChild(tr);
+  $('chapters').innerHTML = '';
+  cut.chapters.forEach((c) => {
+    const b = document.createElement('button');
+    b.className = 'ch';
+    b.innerHTML = `<time>${fmt(c.at)}</time><span></span>`;
+    b.querySelector('span').textContent = c.title;
+    b.onclick = () => { v.currentTime = c.at + 0.01; v.play(); };
+    $('chapters').appendChild(b);
+  });
+  $('tx').innerHTML = '';
+  cut.cues.forEach((c) => {
+    const s = document.createElement('span');
+    s.className = 'cue';
+    s.textContent = c.text + ' ';
+    s.onclick = () => { v.currentTime = c.start; v.play(); };
+    $('tx').appendChild(s);
+  });
+  $('dl').innerHTML = `Download: <a href="${cut.name}.mp4" download>${cut.name}.mp4</a> · <a href="${cut.name}.srt" download>captions (.srt)</a> · ${fmt(cut.duration)}`;
+}
+DATA.cuts.forEach((c) => {
+  const b = document.createElement('button');
+  b.textContent = `${c.label} · ${fmt(c.duration)}`;
+  b.dataset.cut = c.name;
+  b.onclick = () => load(c);
+  $('cuts').appendChild(b);
+});
+if (DATA.cuts.length < 2) $('cuts').style.display = 'none';
+v.addEventListener('timeupdate', () => {
+  if (!cur) return;
+  const t = v.currentTime;
+  const chs = $('chapters').children;
+  let on = -1;
+  cur.chapters.forEach((c, i) => { if (t >= c.at) on = i; });
+  [...chs].forEach((el, i) => el.classList.toggle('on', i === on));
+  const cues = $('tx').children;
+  cur.cues.forEach((c, i) => cues[i].classList.toggle('on', t >= c.start && t < c.end + 0.15));
+});
+load(DATA.cuts[0]);
+</script>
+</body>
+</html>

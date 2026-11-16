@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taskboard</title>
+<!-- A tiny made-up app to demo democut on. Not a real product. MIT licence. -->
+<style>
+  *{box-sizing:border-box} body{margin:0;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f1f5f9;color:#0f172a}
+  header{display:flex;align-items:center;gap:16px;padding:14px 28px;background:#fff;border-bottom:1px solid #e2e8f0}
+  .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:8px}
+  .logo i{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#6366f1,#22d3ee);display:inline-block}
+  nav{display:flex;gap:4px;margin-left:24px} nav a{padding:6px 12px;border-radius:8px;color:#475569;text-decoration:none;cursor:pointer}
+  nav a.on{background:#eef2ff;color:#4338ca;font-weight:600}
+  .who{margin-left:auto;color:#64748b;font-size:14px}
+  main{padding:24px 28px}
+  .bar{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+  .bar input{flex:0 0 320px;padding:9px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}
+  .btn{padding:9px 14px;border-radius:10px;border:0;background:#4f46e5;color:#fff;font:inherit;font-weight:600;cursor:pointer}
+  .btn.ghost{background:#fff;color:#334155;border:1px solid #cbd5e1}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .col{background:#e2e8f0aa;border-radius:14px;padding:12px;min-height:420px}
+  .col h3{margin:4px 6px 12px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#475569;display:flex;justify-content:space-between}
+  .card{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px #0f172a14;cursor:pointer;border:1px solid transparent}
+  .card:hover{border-color:#c7d2fe}
+  .card b{display:block;font-weight:600;margin-bottom:6px}
+  .tags{display:flex;gap:6px;align-items:center;font-size:12px;color:#64748b}
+  .tag{padding:2px 8px;border-radius:999px;background:#f1f5f9}
+  .tag.high{background:#fee2e2;color:#b91c1c} .tag.med{background:#fef3c7;color:#92400e} .tag.low{background:#dcfce7;color:#166534}
+  .new{display:none;background:#fff;border-radius:12px;padding:14px;margin-bottom:18px;gap:10px;align-items:center;border:1px solid #c7d2fe}
+  .new.open{display:flex} .new input,.new select{padding:9px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}
+  .new input{flex:1}
+  .panel{position:fixed;top:0;right:0;width:420px;height:100%;background:#fff;box-shadow:-8px 0 30px #0f172a22;padding:28px;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+  .panel.open{transform:none} .panel h2{margin:0 0 8px} .panel .meta{color:#64748b;margin-bottom:18px}
+  .panel .x{position:absolute;right:20px;top:20px;border:0;background:none;font-size:22px;cursor:pointer;color:#64748b}
+  .move{display:flex;gap:8px;margin-top:20px}
+  .stats{display:none;grid-template-columns:repeat(3,1fr);gap:18px}
+  .tile{background:#fff;border-radius:14px;padding:20px} .tile .n{font-size:40px;font-weight:800} .tile .l{color:#64748b}
+  .chart{grid-column:1/-1;background:#fff;border-radius:14px;padding:20px;display:flex;gap:16px;align-items:flex-end;height:240px}
+  .chart div{flex:1;background:linear-gradient(#818cf8,#6366f1);border-radius:8px 8px 0 0;position:relative}
+  .chart div span{position:absolute;bottom:-24px;left:0;right:0;text-align:center;font-size:12px;color:#64748b}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0f172a;color:#fff;padding:10px 18px;border-radius:10px;transition:transform .3s}
+  .toast.on{transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><i></i>Taskboard</div>
+  <nav><a id="nav-board" class="on">Board</a><a id="nav-stats">Insights</a></nav>
+  <div class="who">Sam Rivera · sam.rivera@example.com</div>
+</header>
+<main>
+  <section id="board">
+    <div class="bar">
+      <input id="search" placeholder="Search tasks">
+      <button class="btn" id="add">+ New task</button>
+    </div>
+    <div class="new" id="new">
+      <input id="title" placeholder="What needs doing?">
+      <select id="prio"><option value="high">High</option><option value="med" selected>Medium</option><option value="low">Low</option></select>
+      <button class="btn" id="save">Add</button>
+    </div>
+    <div class="cols">
+      <div class="col" data-col="todo"><h3>To do <span></span></h3><div></div></div>
+      <div class="col" data-col="doing"><h3>In progress <span></span></h3><div></div></div>
+      <div class="col" data-col="done"><h3>Done <span></span></h3><div></div></div>
+    </div>
+  </section>
+  <section id="stats" class="stats">
+    <div class="tile"><div class="n" id="s-open">0</div><div class="l">Open tasks</div></div>
+    <div class="tile"><div class="n" id="s-done">0</div><div class="l">Done this week</div></div>
+    <div class="tile"><div class="n">2.4d</div><div class="l">Median time to done</div></div>
+    <div class="chart" id="chart"></div>
+  </section>
+</main>
+<div class="panel" id="panel"><button class="x" id="close">×</button><h2 id="p-title"></h2><div class="meta" id="p-meta"></div>
+  <p id="p-body"></p><div class="move"><button class="btn ghost" id="to-doing">Start</button><button class="btn" id="to-done">Mark done</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const tasks = [
+  { id: 1, t: 'Write onboarding checklist', p: 'med', c: 'todo', who: 'Ana' },
+  { id: 2, t: 'Fix login redirect on mobile', p: 'high', c: 'todo', who: 'Sam' },
+  { id: 3, t: 'Update pricing page copy', p: 'low', c: 'todo', who: 'Lee' },
+  { id: 4, t: 'Migrate images to CDN', p: 'med', c: 'doing', who: 'Ana' },
+  { id: 5, t: 'Customer interview notes', p: 'low', c: 'doing', who: 'Sam' },
+  { id: 6, t: 'Ship dark mode', p: 'high', c: 'done', who: 'Lee' },
+  { id: 7, t: 'Weekly metrics email', p: 'med', c: 'done', who: 'Ana' },
+];
+const label = { high: 'High', med: 'Medium', low: 'Low' };
+let open = null;
+const $ = (id) => document.getElementById(id);
+function render() {
+  const q = $('search').value.toLowerCase();
+  document.querySelectorAll('.col').forEach((col) => {
+    const list = tasks.filter((x) => x.c === col.dataset.col && x.t.toLowerCase().includes(q));
+    col.querySelector('h3 span').textContent = list.length;
+    const box = col.querySelector('div'); box.innerHTML = '';
+    list.forEach((x) => {
+      const el = document.createElement('div'); el.className = 'card'; el.dataset.id = x.id;
+      el.innerHTML = `<b></b><div class="tags"><span class="tag ${x.p}">${label[x.p]}</span><span>${x.who}</span></div>`;
+      el.querySelector('b').textContent = x.t;
+      el.onclick = () => show(x); box.appendChild(el);
+    });
+  });
+  $('s-open').textContent = tasks.filter((x) => x.c !== 'done').length;
+  $('s-done').textContent = tasks.filter((x) => x.c === 'done').length;
+}
+function show(x) { open = x; $('p-title').textContent = x.t; $('p-meta').textContent = `${label[x.p]} priority · ${x.who}`;
+  $('p-body').textContent = 'Notes, links and history for this task live here.'; $('panel').classList.add('open'); }
+function toast(m) { $('toast').textContent = m; $('toast').classList.add('on'); setTimeout(() => $('toast').classList.remove('on'), 1800); }
+function move(c) { if (!open) return; open.c = c; $('panel').classList.remove('open'); render(); toast(c === 'done' ? 'Nice, task done' : 'Task started'); }
+$('search').oninput = render;
+$('add').onclick = () => { $('new').classList.toggle('open'); $('title').focus(); };
+$('save').onclick = () => { const t = $('title').value.trim(); if (!t) return;
+  tasks.unshift({ id: Date.now(), t, p: $('prio').value, c: 'todo', who: 'Sam' }); $('title').value = ''; $('new').classList.remove('open'); render(); toast('Task added'); };
+$('close').onclick = () => $('panel').classList.remove('open');
+$('to-doing').onclick = () => move('doing'); $('to-done').onclick = () => move('done');
+$('nav-board').onclick = () => { $('board').style.display = ''; $('stats').style.display = 'none'; $('nav-board').classList.add('on'); $('nav-stats').classList.remove('on'); };
+$('nav-stats').onclick = () => { $('board').style.display = 'none'; $('stats').style.display = 'grid'; $('nav-stats').classList.add('on'); $('nav-board').classList.remove('on');
+  const c = $('chart'); c.innerHTML = ''; [3, 5, 4, 7, 6, 9, 8].forEach((n, i) => { const d = document.createElement('div'); d.style.height = n * 10 + '%';
+    d.innerHTML = `<span>${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>`; c.appendChild(d); }); };
+render();
+</script>
+</body>
+</html>

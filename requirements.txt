@@ -1,0 +1,6 @@
+numpy>=1.24
+opencv-python-headless>=4.8
+pillow>=10.0
+# offline voice (optional; use --tts none for silent drafts)
+kokoro-onnx>=0.4
+soundfile>=0.12

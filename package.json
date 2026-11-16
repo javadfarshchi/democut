@@ -1,0 +1,14 @@
+{
+  "name": "democut",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Narrated product demo videos, written as code.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "example:record": "node examples/taskboard/record.mjs .takes",
+    "example:build": "python3 skills/democut/kit/build.py examples/taskboard/storyboard.json --takes .takes --out out --gif short --gif-range 8-22 --sheet",
+    "example:draft": "python3 skills/democut/kit/build.py examples/taskboard/storyboard.json --takes .takes --out out --tts none --preset ultrafast --sheet"
+  },
+  "devDependencies": { "playwright": "^1.47.0" }
+}

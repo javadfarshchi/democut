@@ -1,0 +1,83 @@
+WEBVTT
+
+00:00:00.450 --> 00:00:02.463
+This video was made by democut.
+
+00:00:02.463 --> 00:00:06.619
+You write a short storyboard, your coding agent records the app,
+
+00:00:06.619 --> 00:00:09.346
+and democut edits it into a narrated demo.
+
+00:00:10.783 --> 00:00:13.221
+Here is Taskboard, a tiny sample app.
+
+00:00:13.221 --> 00:00:18.229
+This is a real browser recording, with a cursor viewers can actually follow.
+
+00:00:19.417 --> 00:00:20.590
+First, the shots.
+
+00:00:22.050 --> 00:00:25.515
+Typing happens at a human pace, and the camera eases in on
+
+00:00:25.515 --> 00:00:26.829
+the part that matters.
+
+00:00:28.017 --> 00:00:31.163
+Every click gets a ripple and a short pause before it,
+
+00:00:31.163 --> 00:00:33.435
+so nobody loses track of what happened.
+
+00:00:35.183 --> 00:00:38.425
+Page loads are cut out, and slow parts are sped up to
+
+00:00:38.425 --> 00:00:42.095
+fit the narration. Each shot lasts as long as its voiceover.
+
+00:00:43.283 --> 00:00:46.670
+Every shot carries a badge that says where it came from.
+
+00:00:46.670 --> 00:00:49.513
+This chart uses made-up numbers, so it says so.
+
+00:00:50.717 --> 00:00:54.648
+Email addresses and other private text are masked before the page is
+
+00:00:54.648 --> 00:00:56.903
+painted, so they never reach the video.
+
+00:00:58.117 --> 00:00:59.653
+Second, how it is made.
+
+00:01:01.117 --> 00:01:04.789
+A short Playwright script records the takes, and marks a scene around
+
+00:01:04.789 --> 00:01:06.173
+each moment worth showing.
+
+00:01:07.383 --> 00:01:09.519
+Then one command builds every cut.
+
+00:01:09.519 --> 00:01:12.848
+The voice is Kokoro, running offline on your machine,
+
+00:01:12.848 --> 00:01:14.167
+so nothing leaves it.
+
+00:01:15.383 --> 00:01:18.003
+From one storyboard you get a full cut,
+
+00:01:18.003 --> 00:01:21.026
+a short cut, captions, a GIF for your readme,
+
+00:01:21.026 --> 00:01:23.175
+and a player page with chapters.
+
+00:01:23.175 --> 00:01:24.451
+It is MIT licensed.
+
+00:01:24.451 --> 00:01:27.138
+Install it in Claude Code with one line.
+

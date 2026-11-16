@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>terminal</title>
+<!-- democut terminal: replays a CLI session (typed commands + their output) in the browser, so it can be recorded
+     with the same cursor, zoom and framing as the app. Load with ?src=session.json. MIT licence.
+     session.json: {"prompt": "$ ", "title": "zsh", "steps": [{"cmd": "npm test", "out": ["line", ...], "pause": 600}]}
+     Each step is exposed as window.democutStep(i) so a recording script can play steps inside scenes. -->
+<style>
+  html,body{margin:0;height:100%;background:#0d1117;color:#e6edf3;font:24px/1.55 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+  #t{padding:36px 44px;white-space:pre-wrap;word-break:break-word}
+  .p{color:#7ee787} .c{color:#e6edf3} .o{color:#b1bac4} .ok{color:#3fb950} .err{color:#f85149} .dim{color:#6e7681}
+  .caret{display:inline-block;width:.6em;height:1.1em;background:#e6edf3;vertical-align:-.15em;animation:b 1s steps(1) infinite}
+  @keyframes b{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="t"></div>
+<script>
+const t = document.getElementById('t');
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let S = { prompt: '$ ', steps: [] };
+const caret = document.createElement('span'); caret.className = 'caret';
+function line(cls, text) { const s = document.createElement('div'); s.className = cls; s.textContent = text; t.appendChild(s); return s; }
+function colour(text) { return /\b(PASS|ok|done|✓)\b/.test(text) ? 'o ok' : /\b(FAIL|error|✗)\b/i.test(text) ? 'o err' : /^\s*#/.test(text) ? 'o dim' : 'o'; }
+async function step(i) {
+  const st = S.steps[i]; if (!st) return;
+  const row = document.createElement('div');
+  const p = document.createElement('span'); p.className = 'p'; p.textContent = S.prompt;
+  const c = document.createElement('span'); c.className = 'c';
+  row.append(p, c, caret); t.appendChild(row);
+  for (const ch of st.cmd) { c.textContent += ch; await sleep(st.typeDelay || 45); }
+  await sleep(350); caret.remove();
+  for (const o of st.out || []) { line(colour(o), o); await sleep(st.lineDelay ?? 70); window.scrollTo(0, document.body.scrollHeight); }
+  await sleep(st.pause ?? 500);
+}
+window.democutStep = step;
+window.democutReady = (async () => {
+  const src = new URLSearchParams(location.search).get('src');
+  if (src) S = await (await fetch(src)).json();
+  document.title = S.title || 'terminal';
+  return S.steps.length;
+})();
+</script>
+</body>
+</html>

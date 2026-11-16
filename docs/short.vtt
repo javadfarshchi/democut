@@ -1,0 +1,41 @@
+WEBVTT
+
+00:00:00.450 --> 00:00:02.410
+This video was made by democut.
+
+00:00:02.410 --> 00:00:07.277
+Your coding agent records the app, and democut turns it into a narrated demo.
+
+00:00:08.717 --> 00:00:11.863
+Every click gets a ripple and a short pause before it,
+
+00:00:11.863 --> 00:00:14.135
+so nobody loses track of what happened.
+
+00:00:15.883 --> 00:00:19.125
+Page loads are cut out, and slow parts are sped up to
+
+00:00:19.125 --> 00:00:22.795
+fit the narration. Each shot lasts as long as its voiceover.
+
+00:00:23.983 --> 00:00:27.915
+Email addresses and other private text are masked before the page is
+
+00:00:27.915 --> 00:00:30.170
+painted, so they never reach the video.
+
+00:00:31.383 --> 00:00:34.003
+From one storyboard you get a full cut,
+
+00:00:34.003 --> 00:00:37.026
+a short cut, captions, a GIF for your readme,
+
+00:00:37.026 --> 00:00:39.175
+and a player page with chapters.
+
+00:00:39.175 --> 00:00:40.451
+It is MIT licensed.
+
+00:00:40.451 --> 00:00:43.138
+Install it in Claude Code with one line.
+
