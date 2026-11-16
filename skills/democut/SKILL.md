@@ -22,11 +22,15 @@ a browser, and let democut's editor do the cutting, zooming, captions, voice and
 ### 1. Check the tools (once)
 
 ```bash
-node -e "require.resolve('playwright')" || npm i -D playwright && npx playwright install chromium
-ffmpeg -version | head -1                       # must exist on PATH
-pip install numpy opencv-python-headless pillow kokoro-onnx soundfile
-bash KIT/get-voice.sh                           # Kokoro voice, ~120 MB, once
+python KIT/init.py doctor                       # lists anything missing, with the command to fix it
 ```
+
+Typical fixes: `npm i -D playwright && npx playwright install chromium`, ffmpeg from the OS package manager,
+`pip install numpy opencv-python-headless pillow kokoro-onnx soundfile`, and `bash KIT/get-voice.sh` for the
+Kokoro voice (~120 MB, once).
+
+To start a new demo folder with a recording script and storyboard to fill in:
+`python KIT/init.py new demos/<name> --url <app url>`.
 
 If the person cannot install the voice, use `--tts none` (silent, captions only) or a `command` engine
 (see `references/voices.md`). Never use a voice whose licence you have not checked.

@@ -2,100 +2,118 @@
 
 # democut
 
-**Narrated product demo videos, written as code.**
+### Your coding agent records your web app. democut turns it into a narrated demo video.
 
-Your coding agent records the real app in a browser. democut edits it into a captioned, narrated demo
-with zooms, chapters, a short cut, a GIF and a player page. Offline voice. No Remotion. MIT.
+[![MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
+[![CI](https://github.com/javadfarshchi/democut/actions/workflows/ci.yml/badge.svg)](https://github.com/javadfarshchi/democut/actions/workflows/ci.yml)
+[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757)](#quickstart)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-6366f1)](skills/democut/SKILL.md)
+[![Runs offline](https://img.shields.io/badge/voice-offline-0ea5e9)](#what-leaves-your-computer)
 
-<a href="https://javadfarshchi.github.io/democut/"><img src="docs/demo.gif" alt="democut demo: a sample app recorded with cursor, click ripples, zooms and captions" width="820"></a>
+[**Watch the demo**](https://javadfarshchi.github.io/democut/) · [Quickstart](#quickstart) · [Prompts](#prompts-to-try) · [Features](#features) · [Docs](#docs)
 
-[**▶ Watch the full demo with chapters and transcript**](https://javadfarshchi.github.io/democut/) · made by democut, of course
+<a href="https://javadfarshchi.github.io/democut/"><img src="docs/demo.gif" alt="A sample app recorded by democut: cursor, click ripple, zoom and captions" width="860"></a>
+
+<sub>This GIF was made by democut from <a href="examples/taskboard">examples/taskboard</a>. <a href="https://javadfarshchi.github.io/democut/">Watch the full video with voice, chapters and transcript.</a></sub>
 
 </div>
 
-## Install
+## Quickstart
 
-**Claude Code** (plugin):
+**1. Install** in Claude Code:
 
 ```
 /plugin marketplace add javadfarshchi/democut
 /plugin install democut@democut
 ```
 
-**Any agent that reads SKILL.md** (Claude Code, Codex, Cursor, Gemini CLI, Copilot, ...):
+Using Codex, Cursor, Gemini CLI or Copilot instead? Run `npx skills add javadfarshchi/democut`.
 
-```bash
-npx skills add javadfarshchi/democut
-```
+**2. Ask:**
 
-Or copy `skills/democut/` into your agent's skills folder (for Claude Code: `~/.claude/skills/democut`).
+> Make a 2-minute demo video of our signup flow on localhost:3000, plus a 30-second cut for the README.
 
-Then ask your agent: *"Make a 2-minute demo video of our signup flow, plus a 30-second cut for the README."*
+Your agent writes the script, records the app, drafts a silent cut, checks its own frames, then builds the
+final video. You get an MP4, captions, a GIF and a page to share.
 
-**Prerequisites:** Node 18+, Python 3.10+, ffmpeg on PATH.
+<details>
+<summary>Prerequisites (the agent will check these for you)</summary>
+
+Node 18+, Python 3.9+ and ffmpeg. Then:
 
 ```bash
 npm i -D playwright && npx playwright install chromium
-pip install -r requirements.txt
-bash skills/democut/kit/get-voice.sh       # offline Kokoro voice, ~120 MB, once
+pip install numpy opencv-python-headless pillow kokoro-onnx soundfile
+bash skills/democut/kit/get-voice.sh        # offline voice, about 120 MB, once
+python skills/democut/kit/init.py doctor    # shows anything still missing
 ```
+</details>
+
+## Prompts to try
+
+- *"Record a 60-second tour of the dashboard at localhost:5173 for our launch tweet."*
+- *"Make a feature video for the new export button. Use test data and label it as such."*
+- *"Our UI changed. Re-record the onboarding demo and rebuild both cuts."*
+- *"Demo the admin panel. Sign in with the test account from .env, but never show it on screen."*
 
 ## What you get
 
-From one `storyboard.json`, for every cut you define:
+From one storyboard you get every cut you ask for:
 
-| Output | |
+| File | What it is |
 |---|---|
-| `full.mp4`, `short.mp4` | 1080p30, H.264 + AAC, MP4 chapters, loudness-normalised narration |
-| `*.srt`, `*.vtt` | Captions, also burned into the video for muted viewing |
-| `index.html` | Self-contained player: cut switcher, clickable chapters, live transcript |
-| `short.gif` | Palette-optimised GIF for your README |
-| `contact-sheet.png` | One frame per shot, so you (or your agent) can review the edit at a glance |
+| `full.mp4`, `short.mp4` | 1080p video with voiceover, burned-in captions and chapters |
+| `short.gif` | A small GIF for your README |
+| `full.srt`, `full.vtt` | Caption files for YouTube, LinkedIn or your own player |
+| `index.html` | A page to share: switch between cuts, jump to chapters, read the transcript |
+| `contact-sheet.png` | One frame per shot, so you can review the edit at a glance |
 
-What the video looks like:
+## Features
 
-- **A cursor people can follow:** eased glides, a pause before each click, click ripples, human-paced typing.
-- **Camera moves:** smooth zooms onto the element that matters, measured from the DOM, applied in the edit.
-- **Tight pacing:** page loads are cut, slow parts are sped up (max 1.7x), each shot lasts as long as its narration.
-- **Honest badges:** every shot says where it came from (`LIVE`, `STUBBED`, `SAMPLE DATA`, `TERMINAL`, ...).
-- **Privacy by default:** emails (and any pattern you add) are replaced in the DOM before they are painted, so
-  they never reach the raw video.
-- **Polish:** chapter cards, a framed app window on a gradient backdrop, crossfades, caption chunks of about a dozen
-  words, optional caveat banners.
-- **Terminal shots:** replay a CLI session in the browser so it matches the rest of the video.
+<table>
+<tr>
+<td width="50%"><img src="docs/features/clicks.gif" alt="cursor gliding to a button, ripple on click"><br><b>A cursor people can follow.</b> Smooth movement, a short pause before each click, a ripple when it lands, and typing at a human pace.</td>
+<td width="50%"><img src="docs/features/zoom.gif" alt="camera easing in on search results"><br><b>The camera zooms on what matters.</b> Smooth zooms onto the element you name, measured from the page, so they always land in the right place.</td>
+</tr>
+<tr>
+<td><img src="docs/features/privacy.gif" alt="an email address shown as dots"><br><b>Private by default.</b> Email addresses, and any pattern you add, are replaced before the page is drawn, so they never reach the recording.</td>
+<td><img src="docs/features/badges.gif" alt="a SAMPLE DATA badge above a chart"><br><b>Honest about its sources.</b> Every shot carries a badge such as LIVE, STAGING or SAMPLE DATA, and captions explain why each step matters.</td>
+</tr>
+<tr>
+<td><img src="docs/features/terminal.gif" alt="a terminal session typed out in the video"><br><b>Terminal shots too.</b> Replay a command-line session inside the video, styled to match the rest.</td>
+<td><img src="docs/features/player.png" alt="the player page with chapters and transcript"><br><b>A page to share.</b> Chapters, captions and a clickable transcript, in one file with no outside requests.</td>
+</tr>
+</table>
 
-## How it works
+Also in the box:
+- **Tight pacing.** Page loads are cut, slow parts are sped up, and each shot lasts as long as its narration.
+- **Chapter cards** that become MP4 chapters and links on the player page.
+- **Re-runnable.** When the UI changes, re-record and rebuild. Narration audio is cached, so rebuilds are quick.
 
-```
-recording script (Playwright + Director)  ──►  <take>.webm + <take>.timeline.json   (scenes, zooms)
-storyboard.json  (shots, narration, cuts)  ──►  build.py  ──►  mp4 · srt · vtt · gif · player page
-```
+## What leaves your computer
 
-1. **Record.** A short script drives the app with `Director` (`click`, `type`, `zoom`, `scene`). Everything inside
-   `d.scene('id', ...)` becomes a shot; everything outside it is cut.
-2. **Storyboard.** Shots in order, chapter cards, narration per shot, and which shots make each cut.
-3. **Build.** `build.py` voices each line, times each shot to it, zooms, frames, captions, mixes and packages.
+Nothing. Recording, voice and editing all run locally.
 
-The agent skill (`skills/democut/SKILL.md`) walks your agent through the whole thing: story first, honest
-badges, a cheap silent draft with a contact sheet to review, then the final build.
+| Step | Runs on | Online? |
+|---|---|---|
+| Recording | Playwright and Chromium | Only to reach your own app |
+| Voice | [Kokoro-82M](https://github.com/hexgrad/kokoro), on your CPU | No (the voice files download once) |
+| Editing and encoding | Python, OpenCV and ffmpeg | No |
 
-### Try the example
+## Without an agent
+
+Everything the skill does, you can run yourself:
 
 ```bash
-git clone https://github.com/javadfarshchi/democut && cd democut
-npm i && npx playwright install chromium && pip install -r requirements.txt && bash skills/democut/kit/get-voice.sh
-npm run example:record     # records .takes/ from the sample app in examples/taskboard
-npm run example:draft      # silent draft + contact sheet in out/
-npm run example:build      # the real thing, with voice and GIF
+python skills/democut/kit/init.py new demos/signup --url http://localhost:3000
+# fill in the TODOs in demos/signup/record.mjs and storyboard.json, then:
+node demos/signup/record.mjs
+python skills/democut/kit/build.py demos/signup/storyboard.json --takes demos/signup/.takes --out demos/signup/out --gif short
 ```
 
-### A recording script
+A recording script reads like a set of directions:
 
 ```js
-import { chromium } from 'playwright';
-import { Director } from './skills/democut/kit/director.mjs';
-
-const browser = await chromium.launch();
 const d = await Director.open(browser, 'app', '.takes');
 await d.goto('http://localhost:3000');
 await d.scene('add-task', async () => {
@@ -106,32 +124,37 @@ await d.scene('add-task', async () => {
   await d.hold(1200);
 });
 await d.close();
-await browser.close();
 ```
 
-Full API: [`references/director.md`](skills/democut/references/director.md) ·
-storyboard schema: [`references/storyboard.md`](skills/democut/references/storyboard.md) ·
-writing tips: [`references/storytelling.md`](skills/democut/references/storytelling.md)
+Each scene becomes a shot. The storyboard lists the shots in order, with the narration for each and the shots that
+go into each cut.
 
-## Why not ...
+### Try the example
 
-- **Remotion** is great, but needs a paid company licence above three people, and rebuilding your UI in React is
-  a different job from recording the real thing. democut is MIT end to end.
-- **Screen Studio / Loom** are manual. democut is re-runnable: when the UI changes, re-record and rebuild.
-- **Cloud TTS** means accounts, keys and sending your script out. Kokoro runs offline on a laptop CPU.
+```bash
+git clone https://github.com/javadfarshchi/democut && cd democut
+npm i && npx playwright install chromium && pip install -r requirements.txt && bash skills/democut/kit/get-voice.sh
+npm run example:record && npm run example:build      # writes out/ with the video you see above
+```
 
-## Voices and licences
+## Docs
 
-democut's code is MIT. The default voice is [Kokoro-82M](https://github.com/hexgrad/kokoro) (Apache-2.0
-weights), run through [kokoro-onnx](https://github.com/thewh1teagle/kokoro-onnx). Bring any other engine with a
-one-line `command`. Read [`references/voices.md`](skills/democut/references/voices.md) before you pick a voice:
-some popular open voices are trained on research-only data. Third-party notices: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- [SKILL.md](skills/democut/SKILL.md): the workflow the agent follows
+- [Director API](skills/democut/references/director.md): `click`, `type`, `zoom`, `scene`, masking, stubbed data, terminal shots
+- [Storyboard format](skills/democut/references/storyboard.md): shots, cuts, chapters, badges, theme
+- [Writing a demo people finish](skills/democut/references/storytelling.md)
+- [Voices and licences](skills/democut/references/voices.md): Kokoro voices, or plug in any other engine
 
-## Contributing
+## Roadmap
 
-Issues and PRs are welcome: new example apps, more voices, transitions, a vertical cut for social video.
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+- Vertical 9:16 cut for social video
+- Background music that ducks under the voice
+- Word-level caption timing
+- More example apps
+
+Ideas and PRs are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licence
 
-[MIT](LICENSE) © Javad Farshchi
+[MIT](LICENSE) © Javad Farshchi. The default voice, Kokoro-82M, is Apache-2.0. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

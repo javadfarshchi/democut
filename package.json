@@ -1,6 +1,6 @@
 {
   "name": "democut",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Narrated product demo videos, written as code.",
   "type": "module",

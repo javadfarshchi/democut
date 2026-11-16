@@ -1,7 +1,7 @@
 {
   "name": "democut",
-  "version": "0.1.0",
-  "description": "Turn a web app into a narrated, captioned product demo video: real Playwright recording with cursor, click ripples and zooms, offline Kokoro voice, chapters, a short cut, a GIF and a player page. No Remotion, MIT.",
+  "version": "0.2.0",
+  "description": "Turn a web app into a narrated, captioned product demo video: real Playwright recording with cursor, click ripples and zooms, offline Kokoro voice, chapters, a short cut, a GIF and a player page. MIT.",
   "author": { "name": "Javad Farshchi", "url": "https://github.com/javadfarshchi" },
   "homepage": "https://github.com/javadfarshchi/democut",
   "repository": "https://github.com/javadfarshchi/democut",

@@ -40,7 +40,7 @@
       "say": "Email addresses and other private text are masked before the page is painted, so they never reach the video." },
 
     { "id": "ch-how", "card": { "kicker": "CHAPTER 2", "title": "How it is made",
-                                "sub": "Playwright  ·  Kokoro voice, offline  ·  ffmpeg  ·  no Remotion" },
+                                "sub": "Playwright  ·  Kokoro voice, offline  ·  ffmpeg  ·  MIT" },
       "say": "Second, how it is made." },
     { "id": "record", "take": "terminal", "scene": "record", "chapter": "2 · How it is made",
       "say": "A short Playwright script records the takes, and marks a scene around each moment worth showing." },
