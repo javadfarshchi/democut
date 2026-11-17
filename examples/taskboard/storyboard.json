@@ -2,7 +2,7 @@
   "title": "democut: narrated product demos, written as code",
   "description": "This video was made by democut, from the storyboard in examples/taskboard. The app is a made-up sample.",
   "voice": { "engine": "kokoro", "voice": "af_heart", "speed": 1.0, "lang": "en-us" },
-  "theme": { "background": ["#0f172a", "#312e81"], "accent": "#a5b4fc", "window_title": "localhost · Taskboard" },
+  "theme": { "background": { "preset": "aurora", "motion": true }, "accent": "#c7d2fe", "window_title": "localhost · Taskboard" },
   "takes": {
     "app":      { "badge": "LIVE",        "note": "sample app on localhost", "color": "#22c55e" },
     "insights": { "badge": "SAMPLE DATA", "note": "made-up numbers",         "color": "#f59e0b" },

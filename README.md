@@ -85,6 +85,13 @@ From one storyboard you get every cut you ask for:
 </tr>
 </table>
 
+### Vibrant backgrounds, built in
+
+<img src="docs/features/backgrounds.png" alt="seven background presets: aurora, sunset, ocean, candy, citrus, ember, midnight">
+
+Seven presets with slowly drifting colour, or your own colours or a brand image. One line in the storyboard:
+`"theme": { "background": "sunset" }`. See [the storyboard format](skills/democut/references/storyboard.md).
+
 Also in the box:
 - **Tight pacing.** Page loads are cut, slow parts are sped up, and each shot lasts as long as its narration.
 - **Chapter cards** that become MP4 chapters and links on the player page.

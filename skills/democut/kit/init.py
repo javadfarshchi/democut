@@ -85,7 +85,7 @@ def storyboard(name):
         'title': f'{name} demo',
         'description': f'A short tour of {name}.',
         'voice': {'engine': 'kokoro', 'voice': 'af_heart', 'speed': 1.0, 'lang': 'en-us'},
-        'theme': {'background': ['#0f172a', '#312e81'], 'accent': '#a5b4fc', 'window_title': name},
+        'theme': {'background': 'aurora', 'accent': '#c7d2fe', 'window_title': name},
         'takes': {'app': {'badge': 'LIVE', 'note': 'real app', 'color': '#22c55e'}},
         'cuts': {'full': '*', 'short': ['intro', 'main-action', 'outro']},
         'cut_labels': {'full': 'Full demo', 'short': 'Short cut'},

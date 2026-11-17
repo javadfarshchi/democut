@@ -5,7 +5,7 @@
   "title": "Acme in 90 seconds",
   "description": "Shown on the player page.",
   "voice": { "engine": "kokoro", "voice": "af_heart", "speed": 1.0, "lang": "en-us" },
-  "theme": { "background": ["#0f172a", "#312e81"], "accent": "#a5b4fc", "window_title": "app.acme.test" },
+  "theme": { "background": "sunset", "accent": "#fde68a", "window_title": "app.acme.test" },
   "takes": {
     "live":    { "badge": "LIVE",    "note": "staging, read-only", "color": "#22c55e" },
     "stubbed": { "badge": "STUBBED", "note": "real UI, test data", "color": "#f59e0b", "window_title": "localhost" }
@@ -35,7 +35,8 @@
 | `voice.engine` | `kokoro` (default, offline), `none` (silent; shot length from word count), `command`. |
 | `voice.voice`, `speed`, `lang` | Kokoro voice id (`af_heart`, `am_michael`, `bf_emma`, ...), speed 0.5 to 2.0, language. |
 | `voice.command` | For `command`: a shell command that reads text on stdin and writes a WAV to `{out}`. |
-| `theme.background` | Two hex colours for the backdrop gradient. `accent` colours card kickers. |
+| `theme.background` | Behind the app window and on cards. A preset name: `aurora` (default), `sunset`, `ocean`, `candy`, `citrus`, `ember`, `midnight`. Or `{"preset": "ocean", "motion": false, "grain": true}`; `motion` (default on) lets the colour blobs drift slowly. Or your own mesh: `{"base": "#0b1026", "colors": ["#ff0080", "#7928ca", "#00d4ff"]}`. Or a brand image: `{"image": "bg.png"}` (path relative to the storyboard). Or two hex colours for a plain linear gradient. |
+| `theme.accent` | Colour of the card kicker and its rule. |
 | `theme.window_title` | Text in the window chrome around recordings. A take can override it. |
 | `takes.<name>` | Badge per take: `badge`, `note`, `color`, optional `window_title`. The name matches `Director.open(browser, name, ...)`. |
 | `cuts` | Named cuts. `"*"` means every shot in order; a list picks shots by id, in that order. Default `{"full": "*"}`. |

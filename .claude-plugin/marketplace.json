@@ -7,7 +7,7 @@
       "name": "democut",
       "source": "./",
       "description": "Record a web app with Playwright and edit it into a narrated, captioned demo video with chapters, a short cut, a GIF and a player page. Offline voice, MIT.",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "category": "productivity",
       "keywords": ["demo", "video", "playwright", "tts", "screen-recording"]
     }

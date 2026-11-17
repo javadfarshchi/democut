@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-11-17)
+
+- Vibrant backgrounds: seven mesh-gradient presets (`aurora`, `sunset`, `ocean`, `candy`, `citrus`, `ember`,
+  `midnight`) with slowly drifting colour, film grain against banding and a soft vignette. Custom colours or a
+  brand image work too. Set `theme.background`; the default is `aurora`.
+- A soft halo behind card text and darker badge pills, so text stays readable on bright colours.
+- About 4x faster frame compositing.
+
 ## 0.2.0 (2026-11-16)
 
 - `init.py doctor`: checks Node, Playwright, ffmpeg, Python packages and the voice, and prints the fix for each.
